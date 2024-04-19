@@ -1,10 +1,16 @@
 package dw.gameshop.service;
 
+import dw.gameshop.exception.ResourceNotFoundException;
 import dw.gameshop.model.Game;
+import dw.gameshop.model.User;
 import dw.gameshop.repository.GameRepository;
+import dw.gameshop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +18,10 @@ import java.util.Optional;
 @Service
 public class GameService {
     GameRepository gameRepository;
-    @Autowired
-    public GameService(GameRepository gameRepository) {
+    UserRepository userRepository;
+    public GameService(GameRepository gameRepository, UserRepository userRepository) {
         this.gameRepository = gameRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Game> getAllGames(){
@@ -25,7 +32,7 @@ public class GameService {
         if (game.isPresent()){
             return game.get();
         } else {
-            return null;
+            throw new ResourceNotFoundException("Exception", "id", id);
         }
     }
     public Game updateGameById(long id, Game game){
@@ -50,7 +57,11 @@ public class GameService {
             gameRepository.save(game1.get());
             return game1.get();
         }else {
-            return null;
+            throw new ResourceNotFoundException("Exception", "id", id);
         }
+    }
+
+    public User saveUser(User user){
+        return userRepository.save(user);
     }
 }

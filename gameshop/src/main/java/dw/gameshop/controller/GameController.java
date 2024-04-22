@@ -34,4 +34,17 @@ public class GameController {
     public ResponseEntity<User> saveUser(@RequestBody User user){
         return new ResponseEntity<>(gameService.saveUser(user), HttpStatus.OK);
     }
+
+    @GetMapping("/products/maxprice")
+    public ResponseEntity<Game> getGameWithMaxPrice(){
+        return new ResponseEntity<>(gameService.getGameWithMaxPrice(), HttpStatus.OK);
+    }
+    @GetMapping("/products/pricetop3")
+    public ResponseEntity<List<Game>> getGameMaxPriceTop3(){
+        return new ResponseEntity<>(gameService.getGameMaxPriceTop3(), HttpStatus.OK);
+    }
+    @GetMapping("/products/maxpricetop3")
+    public ResponseEntity<List<Game>> getGameWithMaxPriceTop3(){
+        return new ResponseEntity<>(gameService.getGameWithMaxPriceTop3(), HttpStatus.OK);
+    }
 }

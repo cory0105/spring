@@ -37,9 +37,8 @@ public class Employee {
     private String area;
     @Column(name = "집전화")
     private String telephoneNo;
-    @ManyToOne
-    @JoinColumn(name = "상사번호")
-    private Employee managerId;
+    @Column(name = "상사번호")
+    private String managerId;
     @ManyToOne
     @JoinColumn(name = "부서번호")
     private Department department;

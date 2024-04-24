@@ -1,6 +1,8 @@
 package dw.wholesale_company.service;
 
+import dw.wholesale_company.model.Customer;
 import dw.wholesale_company.model.Order;
+import dw.wholesale_company.model.Product;
 import dw.wholesale_company.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +38,14 @@ public class OrderService {
     }
 
     public List<Order> getOrderByDateAfter(LocalDate date) {
-        return orderRepository.findAll()
-                .stream().filter(o->o.getOrderDate().compareTo(date.atStartOfDay()) > 0)
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream().filter(a -> a.getOrderDate().compareTo(date.atStartOfDay()) > 0)
                 .collect(Collectors.toList());
+    }
+
+    // 특정 날짜에 주문한 고객의 모든 정보
+    public List<Customer> getCustomerByOrderDate(LocalDate date) {
+        return orderRepository.findAll().stream().filter(a -> a.getOrderDate().toLocalDate().equals(date))
+                .map(Order::getCustomer).collect(Collectors.toList());
     }
 }

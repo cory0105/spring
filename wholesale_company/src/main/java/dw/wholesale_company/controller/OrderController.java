@@ -1,5 +1,6 @@
 package dw.wholesale_company.controller;
 
+import dw.wholesale_company.model.Customer;
 import dw.wholesale_company.model.Order;
 import dw.wholesale_company.service.OrderService;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,12 @@ public class OrderController {
     public ResponseEntity<List<Order>> getOrderDate20210501(){
         return new ResponseEntity<>(orderService.getOrderDate20210501(), HttpStatus.OK);
     }
-    @GetMapping("/teacher/1/{data}")
+    @GetMapping("/teacher/1/{date}")
     public ResponseEntity<List<Order>> getOrderByDateAfter(@PathVariable LocalDate date) {
         return new ResponseEntity<>(orderService.getOrderByDateAfter(date), HttpStatus.OK);
+    }
+    @GetMapping("/order/customer/{date}")
+    public ResponseEntity<List<Customer>> getCustomerByOrderDate(@PathVariable LocalDate date){
+        return new ResponseEntity<>(orderService.getCustomerByOrderDate(date), HttpStatus.OK);
     }
 }

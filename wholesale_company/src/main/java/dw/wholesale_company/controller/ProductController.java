@@ -4,9 +4,7 @@ import dw.wholesale_company.model.Product;
 import dw.wholesale_company.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +33,41 @@ public class ProductController {
     @GetMapping("/teacher/2/{num}")
     public ResponseEntity<List<Product>> getProductByInventoryUnder(@PathVariable int num) {
         return new ResponseEntity<>(productService.getProductByInventoryUnder(num), HttpStatus.OK);
+    }
+    @GetMapping("/product/lambda/{keyword}")
+    public ResponseEntity<List<Product>> getProductByKeywordLambda(@PathVariable String keyword){
+        return new ResponseEntity<>(productService.getProductByKeywordLambda(keyword), HttpStatus.OK);
+    }
+    @GetMapping("/product/jpql/{keyword}")
+    public ResponseEntity<List<Product>> getProductByKeywordJpql(@PathVariable String keyword){
+        return new ResponseEntity<>(productService.getProductByKeywordJpql(keyword), HttpStatus.OK);
+    }
+    @GetMapping("/product/{keyword}")
+    public ResponseEntity<List<Product>> getProductByKeyword(@PathVariable String keyword){
+        return new ResponseEntity<>(productService.getProductByKeyword(keyword), HttpStatus.OK);
+    }
+    @GetMapping("/product/lambda/{lowLimit}/{highLimit}")
+    public ResponseEntity<List<Product>> getProductByPriceLambda(@PathVariable int lowLimit, @PathVariable int highLimit){
+        return new ResponseEntity<>(productService.getProductByPriceLambda(lowLimit, highLimit), HttpStatus.OK);
+    }
+    @GetMapping("/product/jpql/{lowLimit}/{highLimit}")
+    public ResponseEntity<List<Product>> getProductByPriceJpql(@PathVariable int lowLimit, @PathVariable int highLimit){
+        return new ResponseEntity<>(productService.getProductByPriceJpql(lowLimit, highLimit), HttpStatus.OK);
+    }
+    @GetMapping("/product/price")
+    public ResponseEntity<List<Product>> getProductByPrice(@RequestParam int low, @RequestParam int high){
+        return new ResponseEntity<>(productService.getProductByPrice(low, high), HttpStatus.OK);
+    }
+    @GetMapping("/product/productIds")
+    public ResponseEntity<List<Product>> getProductByproductIds(@RequestBody List<Long> nums){
+        return new ResponseEntity<>(productService.getProductByproductIds(nums), HttpStatus.OK);
+    }
+    @GetMapping("/product/lambda/productIds")
+    public ResponseEntity<List<Product>> getProductByproductIdsLambda(@RequestBody List<Long> nums){
+        return new ResponseEntity<>(productService.getProductByproductIdsLambda(nums), HttpStatus.OK);
+    }
+    @GetMapping("/product/top/{top}")
+    public ResponseEntity<List<Product>> getProductByInventory(@PathVariable int top){
+        return new ResponseEntity<>(productService.getProductByInventory(top), HttpStatus.OK);
     }
 }

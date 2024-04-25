@@ -1,16 +1,10 @@
 package dw.wholesale_company.service;
 
-import dw.wholesale_company.controller.MileageController;
 import dw.wholesale_company.model.Customer;
-import dw.wholesale_company.model.Mileage;
 import dw.wholesale_company.repository.CustomerRepository;
-import dw.wholesale_company.repository.MileageRepository;
-import io.micrometer.observation.Observation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,12 +46,5 @@ public class CustomerService {
         }
         Double avg = (double)sum / (double)customers.size();
         return customers.stream().filter(c->c.getMileage() > avg).collect(Collectors.toList());
-    }
-    // 마일리지 등급명별로 고객수를 보이시오.
-    MileageRepository mileageRepository;
-    public List<Customer> getCustomerByMileageGrade(String grade){
-        return customerRepository.findAll().stream().filter((Customer c) -> c.getMileage() >= mileageRepository.findById(grade).get().getLowLimit()
-        && c.getMileage() <= mileageRepository.findById(grade).get().getHighLimit()
-        ).collect(Collectors.toList());
     }
 }

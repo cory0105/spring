@@ -31,7 +31,7 @@ public class Main2 {
 
 //        title이 특정 문자열을 포함하는 모든 책을 추출하여 반환하세요.
         System.out.println(
-                books.stream().filter(book -> book.getTitle().contains("a")).collect(Collectors.groupingBy(Book::getTitle))
+                books.stream().filter(book -> book.getTitle().contains("a")).collect(Collectors.toList())
         );
     }
 }
@@ -82,5 +82,10 @@ class Book{
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + title + '\'' + author + '\'' + publicationYear + rating + '}';
     }
 }

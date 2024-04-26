@@ -52,4 +52,26 @@ public class OrderService {
     public List<Order> test(List<Customer> customers){
         return orderRepository.findAllByCustomerIn(customers);
     }
+
+    //도시별로 주문금액합을 보이되 주문금액합이 많은 상위 5개의 도시에 대한 결과만 보이시오.
+//    @Autowired
+//    EntityManager entityManager;
+    public List<Object[]> getTopCitiesByTotalOrderAmount(int limit) {
+        List<Object[]> cities = orderRepository.getTopCitiesByTotalOrderAmount();
+        return cities.stream().limit(limit).collect(Collectors.toList());
+//        return entityManager.createQuery(
+//                        "SELECT c.city, SUM(od.orderQuantity * od.unitPrice) " +
+//                                "FROM OrderDetail od " +
+//                                "JOIN od.order o " +
+//                                "JOIN o.customer c " +
+//                                "GROUP BY c.city " +
+//                                "ORDER BY SUM(od.orderQuantity * od.unitPrice) DESC")
+//                .setMaxResults(limit)
+//                .getResultList();
+    }
+
+    //‘서울특별시’ 고객들에 대해 주문년도별 주문건수를 보이시오
+    public List<Object[]> getOrderCountByYearForCity(String city) {
+        return orderRepository.getOrderCountByYearForCity(city);
+    }
 }

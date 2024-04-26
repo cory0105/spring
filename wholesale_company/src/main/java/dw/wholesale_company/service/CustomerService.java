@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,11 +54,13 @@ public class CustomerService {
         Double avg = (double)sum / (double)customers.size();
         return customers.stream().filter(c->c.getMileage() > avg).collect(Collectors.toList());
     }
-    // 마일리지 등급명별로 고객수를 보이시오.
+
+    // 마일리지 등급명에 따른 고객수를 보이시오.
+    @Autowired
     MileageRepository mileageRepository;
-    public List<Customer> getCustomerByMileageGrade(String grade){
-        return customerRepository.findAll().stream().filter((Customer c) -> c.getMileage() >= mileageRepository.findById(grade).get().getLowLimit()
-        && c.getMileage() <= mileageRepository.findById(grade).get().getHighLimit()
-        ).collect(Collectors.toList());
+    public int getCustomerByMileageGrade(String grade){
+        return customerRepository.findAll().stream()
+                .filter((Customer c) -> c.getMileage() >= mileageRepository.findById(grade).get().getLowLimit()
+                        && c.getMileage() <= mileageRepository.findById(grade).get().getHighLimit()).toList().size();
     }
 }

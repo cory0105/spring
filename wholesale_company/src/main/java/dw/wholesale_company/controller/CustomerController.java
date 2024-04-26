@@ -5,6 +5,7 @@ import dw.wholesale_company.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -35,5 +36,8 @@ public class CustomerController {
     public ResponseEntity<List<Customer>> getCustomerWithHighMileThanAvg() {
         return new ResponseEntity<>(customerService.getCustomerWithHighMileThanAvg(), HttpStatus.OK);
     }
-
+    @GetMapping("/customer/mileage/{grade}")
+    public ResponseEntity<Integer> getCustomerByMileageGrade(@PathVariable String grade){
+        return new ResponseEntity<>(customerService.getCustomerByMileageGrade(grade), HttpStatus.OK);
+    }
 }

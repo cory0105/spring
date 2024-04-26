@@ -43,4 +43,16 @@ public class OrderController {
     public List<Order> test(@RequestBody List<Customer> customers){
         return orderService.test(customers);
     }
+
+    @GetMapping("/orders/city/orderamount/{limit}")
+    public ResponseEntity<List<Object[]>> getTopCitiesByTotalOrderAmount(@PathVariable int limit) {
+        return new ResponseEntity<>(orderService.getTopCitiesByTotalOrderAmount(limit),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/orders/ordercount/year/{city}")
+    public ResponseEntity<List<Object[]>> getOrderCountByYearForCity(@PathVariable String city) {
+        return new ResponseEntity<>(orderService.getOrderCountByYearForCity(city),
+                HttpStatus.OK);
+    }
 }

@@ -2,6 +2,7 @@ package dw.wholesale_company.service;
 
 import dw.wholesale_company.model.Customer;
 import dw.wholesale_company.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,5 +47,13 @@ public class CustomerService {
         }
         Double avg = (double)sum / (double)customers.size();
         return customers.stream().filter(c->c.getMileage() > avg).collect(Collectors.toList());
+    }
+    @Autowired
+    RepositoryService repositoryService;
+    public int getCustomerByMileageGrade(String grade){
+        return customerRepository.findAll().stream().filter((Customer c) -> c.getMileage() >=
+                repositoryService.mileageRepository.findById(grade).get().getLowLimit()
+                && c.getMileage() <= repositoryService.mileageRepository.findById(grade).get().getHighLimit()
+        ).toList().size();
     }
 }

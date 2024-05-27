@@ -28,6 +28,7 @@ public class SecurityConfig {
         return http
                 .authorizeRequests(auth -> auth
                         .requestMatchers(
+                                new AntPathRequestMatcher("/products/**"),
                                 new AntPathRequestMatcher("/user/login"), // user/* => user의 자식만 || user/** => user의 자식의 자식까지 모두
                                 new AntPathRequestMatcher("/user/signup"),
                                 new AntPathRequestMatcher("/login")

@@ -21,7 +21,8 @@ public class UserService {
     }
 
     public String saveUser(UserDto userDto) {
-        User user = new User(userDto.getUserId(),
+        User user = new User(
+                userDto.getUserId(),
                 userDto.getUserName(),
                 userDto.getUserEmail(),
                 bCryptPasswordEncoder.encode(userDto.getPassword()),

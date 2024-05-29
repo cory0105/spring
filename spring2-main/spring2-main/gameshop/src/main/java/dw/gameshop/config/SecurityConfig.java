@@ -31,7 +31,10 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/products/**"),
                                 new AntPathRequestMatcher("/user/login"), // user/* => user의 자식만 || user/** => user의 자식의 자식까지 모두
                                 new AntPathRequestMatcher("/user/signup"),
-                                new AntPathRequestMatcher("/login")
+                                new AntPathRequestMatcher("/login"),
+                                new AntPathRequestMatcher("/gameshop/**"),
+                                new AntPathRequestMatcher("/css/**"),
+                                new AntPathRequestMatcher("/js/**")
                         ).permitAll()
                         .anyRequest().authenticated()) // 모든 요청에 인증을 받음
                 .formLogin(form->form.loginPage("/login").defaultSuccessUrl("/articles")) // formLogin : 정적 로그인 페이지가 존재하는 경우 사용 , defaultSuccessUrl : 로그인 성공시 /articles로  로그인 페이지를 직접 만들기 위함

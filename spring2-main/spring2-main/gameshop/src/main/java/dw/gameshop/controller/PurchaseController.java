@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class PurchaseController {
     @Autowired
     PurchaseService purchaseService;
@@ -18,6 +19,11 @@ public class PurchaseController {
     @PostMapping("/products/purchase")
     public Purchase savePurchase(@RequestBody Purchase purchase) {
         return purchaseService.savePurchase(purchase);
+    }
+
+    @PostMapping("/products/purchaselist")
+    public List<Purchase> savePurchase(@RequestBody List<Purchase> purchaselist) {
+        return purchaseService.savePurchaseList(purchaselist);
     }
 
     @GetMapping("/products/purchase")

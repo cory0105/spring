@@ -28,6 +28,7 @@ public class PurchaseService {
         return purchaseRepository.save(purchase);
     }
 
+
     public List<Purchase> savePurchaseList(List<Purchase> purchaseList){
 //        for (int i=0; i<purchaseList.size(); i++){
 //            purchaseList.get(i).setPurchaseTime(LocalDateTime.now());

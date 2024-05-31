@@ -57,7 +57,7 @@ function sessionCurrent() {
             if(response.status == 200){
                 document.querySelector(".login-box").classList.add("hidden");
                 document.querySelector(".user-box").classList.remove("hidden");
-                document.querySelector(".user-box p").textContent = response.data + "님, 환영합니다.";
+                document.querySelector(".user-box p").textContent = response.data.userId + "님, 환영합니다.";
             }
         }
     })
@@ -121,7 +121,8 @@ document.querySelector(".signupBtn").addEventListener("click",()=>{
         .post(urlSignup, data)
         .then((response)=>{
             console.log("데이터: ", response);
-            document.querySelector(".signup-box").classList.add("hidden");
+            if(response.data!="이미 등록된 아이디입니다."){
+                document.querySelector(".signup-box").classList.add("hidden");
             const data2 = {
                 userId: signupUserId,
                 password: signupPassword
@@ -135,6 +136,7 @@ document.querySelector(".signupBtn").addEventListener("click",()=>{
             .catch((error)=>{
                 console.log("에러 발생: ", error);
             })
+            }
         })
         .catch((error)=>{
             console.log("에러 발생: ", error);
